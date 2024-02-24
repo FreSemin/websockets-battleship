@@ -16,6 +16,8 @@
         "nodemon": "^2.0.22"
     },
     "dependencies": {
+        "tsx": "^4.7.1",
+        "typescript": "^5.3.3",
         "ws": "^8.8.0"
     }
 }
