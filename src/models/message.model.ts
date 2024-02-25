@@ -1,5 +1,8 @@
+import { Winner } from '../entities';
+
 export enum EMessageTypes {
   reg = 'reg',
+  updateWinners = 'update_winners',
 }
 
 // TODO: data only string?
@@ -30,7 +33,11 @@ export class MessageRes<T extends MessageDataTypes> {
   }
 }
 
-export type MessageDataTypes = RegDataReq | RegDataRes | string;
+export type MessageDataTypes =
+  | RegDataReq
+  | RegDataRes
+  | UpdateWinnersRes
+  | string;
 
 export type RegDataReq = {
   name: string;
@@ -43,3 +50,5 @@ export type RegDataRes = {
   error: boolean;
   errorText: string;
 };
+
+export type UpdateWinnersRes = Winner[];
