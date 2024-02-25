@@ -1,5 +1,6 @@
 import { IBaseRepository } from '.';
 import { User } from '../models';
+
 export class UserRepository implements IBaseRepository<User> {
   private users: User[] = [];
 

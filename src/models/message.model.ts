@@ -1,4 +1,4 @@
-import { Winner } from '../entities';
+import { Winner } from '.';
 
 export enum EMessageTypes {
   reg = 'reg',
