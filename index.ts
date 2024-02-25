@@ -16,6 +16,7 @@ httpServer.listen(HTTP_PORT, () => {
 const wssPort = Number(process.env.APP_SERVER_PORT) || 3000;
 
 const wss = new WebSocketServer({ port: wssPort }, () => {
+  // TODO: show socket info
   console.log(`WebSocket Server Started on ${wssPort} port!`);
 });
 
