@@ -5,9 +5,10 @@ import {
   RegDataReq,
   RegDataRes,
   UpdateWinnersRes,
+  User,
 } from '../models';
 import { AppDB, AppDataBase } from '.';
-import { User, Winner, WinnersList } from '../entities';
+import { Winner, WinnersList } from '../entities';
 
 class AppDataBaseService {
   private static instance: AppDataBaseService;

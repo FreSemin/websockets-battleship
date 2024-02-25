@@ -1,27 +1,5 @@
-import { randomUUID } from 'crypto';
 import { IBaseRepository } from '.';
-
-export interface IUser {
-  index: string;
-  name: string;
-  password: string;
-}
-
-export class User implements IUser {
-  index: string = '';
-
-  name: string = '';
-
-  password: string = '';
-
-  constructor(user: Partial<User>) {
-    // TODO: validate
-    Object.assign(this, user);
-
-    this.index = randomUUID();
-  }
-}
-
+import { User } from '../models';
 export class UserRepository implements IBaseRepository<User> {
   private users: User[] = [];
 
