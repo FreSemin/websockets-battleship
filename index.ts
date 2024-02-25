@@ -5,6 +5,8 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+// TODO: refactor order
+// TODO: add strings to constants
 const HTTP_PORT = Number(process.env.APP_HTTP_PORT) || 8181;
 
 httpServer.listen(HTTP_PORT, () => {
