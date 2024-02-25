@@ -1,7 +1,7 @@
 import { WebSocket } from 'ws';
 import { EMessageTypes, MessageRes, RegDataReq, RegDataRes } from '../models';
 import { AppDB, AppDataBase } from '.';
-import { User } from '../entities';
+import { User, Winner, WinnersList } from '../entities';
 
 class AppDataBaseService {
   private static instance: AppDataBaseService;
@@ -11,8 +11,11 @@ class AppDataBaseService {
   // TODO: private or public?
   public clients: Map<string, WebSocket> = new Map();
 
+  private winnersList: WinnersList;
+
   constructor() {
     this.appDB = AppDB;
+    this.winnersList = new WinnersList();
   }
 
   static getInstance(): AppDataBaseService {
@@ -31,7 +34,9 @@ class AppDataBaseService {
 
     this.sendRegRes(ws, user);
 
-    // TODO: update winners
+    const winner: Winner = new Winner({ name: user.name });
+
+    this.winnersList.addWinner(winner);
   }
 
   regClient(ws: WebSocket, user: User): void {
