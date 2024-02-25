@@ -9,6 +9,27 @@ export type Message<T extends MessageDataTypes> = {
   id: number;
 };
 
+// TODO: improve types, type from message?
+export class MessageRes<T extends MessageDataTypes> {
+  type: EMessageTypes;
+
+  id: number = 0;
+
+  data: T;
+
+  constructor(type: EMessageTypes, data: T) {
+    this.type = type;
+    this.data = data;
+  }
+
+  toJSON(): string {
+    return JSON.stringify({
+      ...this,
+      data: JSON.stringify(this.data),
+    });
+  }
+}
+
 export type MessageDataTypes = RegDataReq | RegDataRes | string;
 
 export type RegDataReq = {
