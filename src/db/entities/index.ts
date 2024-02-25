@@ -1,3 +1,3 @@
 export * from './base-repository';
-export * from './user';
-export * from './winners-list';
+export * from './user.entity';
+export * from './winners-list.entity';
