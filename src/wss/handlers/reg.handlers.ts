@@ -1,10 +1,11 @@
 import { WebSocket } from 'ws';
+import { AppDBService } from '../../db';
 
 export const handleReg = (data: string, ws: WebSocket) => {
-  // parse data
-  // handle error
-  // Check is exist
-  // if exist find id
-  // else reg
-  // send response
+  try {
+    AppDBService.regUser(data, ws);
+  } catch (error) {
+    // TODO: send error res
+    // TODO: update winners
+  }
 };
