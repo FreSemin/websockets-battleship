@@ -1,4 +1,4 @@
-import { UserRepository } from './entities';
+import { RoomRepository, UserRepository } from './entities';
 
 export class AppDataBase {
   private static instance: AppDataBase;
@@ -12,8 +12,11 @@ export class AppDataBase {
 
   userRepository: UserRepository;
 
+  roomRepository: RoomRepository;
+
   constructor() {
     this.userRepository = new UserRepository();
+    this.roomRepository = new RoomRepository();
   }
 }
 
