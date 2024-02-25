@@ -1,6 +1,6 @@
 import { WebSocket } from 'ws';
-import { EMessageTypes, Message } from '../models';
 import { handleReg } from '.';
+import { EMessageTypes, Message } from '../../models';
 
 export const handleMessage = (ws: WebSocket, msg: string) => {
   try {

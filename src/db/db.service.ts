@@ -1,10 +1,5 @@
 import { WebSocket } from 'ws';
-import {
-  EMessageTypes,
-  MessageRes,
-  RegDataReq,
-  RegDataRes,
-} from '../wss/models';
+import { EMessageTypes, MessageRes, RegDataReq, RegDataRes } from '../models';
 import { AppDB, AppDataBase } from '.';
 import { User } from '../entities';
 
