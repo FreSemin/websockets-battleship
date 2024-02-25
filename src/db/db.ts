@@ -1,4 +1,4 @@
-import { UserRepository } from '../entities';
+import { UserRepository } from './entities';
 
 export class AppDataBase {
   private static instance: AppDataBase;

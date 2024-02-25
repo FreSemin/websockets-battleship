@@ -9,7 +9,7 @@ import {
   Winner,
 } from '../models';
 import { AppDB, AppDataBase } from '.';
-import { WinnersList } from '../entities';
+import { WinnersList } from './entities';
 
 class AppDataBaseService {
   private static instance: AppDataBaseService;

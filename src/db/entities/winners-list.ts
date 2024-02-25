@@ -1,4 +1,4 @@
-import { Winner } from '../models';
+import { Winner } from '../../models';
 
 export class WinnersList {
   private winners: Winner[] = [];
