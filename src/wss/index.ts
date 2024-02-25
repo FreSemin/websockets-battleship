@@ -1,4 +1,5 @@
 import { WebSocket } from 'ws';
+import { handleMessage } from './handlers';
 
 export const onConnection = (ws: WebSocket) => {
   // TODO: Improve error handling
@@ -9,7 +10,7 @@ export const onConnection = (ws: WebSocket) => {
     console.log('Close ws: ', ws);
   });
 
-  ws.on('message', (message) => {
-    console.log('message: ', message);
+  ws.on('message', (message: string) => {
+    handleMessage(ws, message);
   });
 };
