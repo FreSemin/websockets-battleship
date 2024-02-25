@@ -1,5 +1,11 @@
 import { WebSocket } from 'ws';
-import { EMessageTypes, MessageRes, RegDataReq, RegDataRes } from '../models';
+import {
+  EMessageTypes,
+  MessageRes,
+  RegDataReq,
+  RegDataRes,
+  UpdateWinnersRes,
+} from '../models';
 import { AppDB, AppDataBase } from '.';
 import { User, Winner, WinnersList } from '../entities';
 
@@ -37,6 +43,8 @@ class AppDataBaseService {
     const winner: Winner = new Winner({ name: user.name });
 
     this.winnersList.addWinner(winner);
+
+    this.sendUpdatedWinners();
   }
 
   regClient(ws: WebSocket, user: User): void {
@@ -55,6 +63,19 @@ class AppDataBaseService {
     );
 
     ws.send(regResponse.toJSON());
+  }
+
+  sendUpdatedWinners(): void {
+    const winners: Winner[] = this.winnersList.getAllWinners();
+
+    const updateWinnersResponse: MessageRes<UpdateWinnersRes> =
+      new MessageRes<UpdateWinnersRes>(EMessageTypes.updateWinners, winners);
+
+    const winnersResJSON: string = updateWinnersResponse.toJSON();
+
+    this.clients.forEach((ws: WebSocket) => {
+      ws.send(winnersResJSON);
+    });
   }
 }
 
