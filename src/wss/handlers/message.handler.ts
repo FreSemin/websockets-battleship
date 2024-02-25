@@ -1,5 +1,6 @@
 import { WebSocket } from 'ws';
 import { EMessageTypes, Message } from '../models';
+import { handleReg } from '.';
 
 export const handleMessage = (ws: WebSocket, msg: string) => {
   try {
@@ -7,6 +8,7 @@ export const handleMessage = (ws: WebSocket, msg: string) => {
 
     switch (parsedMessage.type) {
       case EMessageTypes.reg:
+        handleReg(parsedMessage.data, ws);
         break;
 
       default:
