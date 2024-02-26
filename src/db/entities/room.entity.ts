@@ -14,8 +14,10 @@ export class RoomRepository implements IBaseRepository<Room> {
       (room) => room.roomId === roomId,
     );
 
-    if (roomIndex !== -1 && this.rooms[roomIndex].roomUsers.length < 2) {
-      this.rooms[roomIndex].roomUsers.push(user);
+    const room: Room = this.rooms[roomIndex];
+
+    if (roomIndex !== -1 && room.roomUsers.length < 2) {
+      room.roomUsers.push(user);
     } else {
       // TODO: throw error
     }
