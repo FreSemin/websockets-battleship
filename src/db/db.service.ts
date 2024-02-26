@@ -12,6 +12,7 @@ import {
   Room,
   RoomsDataRes,
   StartGameRes,
+  TurnRes,
   UpdateWinnersRes,
   User,
   Winner,
@@ -196,9 +197,30 @@ class AppDataBaseService {
           if (client) {
             client.send(startGameResponse.toJSON());
           }
+
+          this.sendPlayerTurn(gameData);
         });
       }
     }
+  }
+
+  sendPlayerTurn(game: Game): void {
+    game.playersData.forEach((playerData) => {
+      const client: WebSocket | undefined = this.clients.get(
+        playerData.playerId,
+      );
+
+      const turnResponse: MessageRes<TurnRes> = new MessageRes<TurnRes>(
+        EMessageTypes.turn,
+        {
+          currentPlayer: game.playersData[game.playerTurn].playerId,
+        },
+      );
+
+      if (client) {
+        client.send(turnResponse.toJSON());
+      }
+    });
   }
 }
 
