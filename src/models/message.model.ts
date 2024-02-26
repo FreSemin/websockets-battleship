@@ -1,4 +1,4 @@
-import { Room, Winner } from '.';
+import { Room, Ship, Winner } from '.';
 
 export enum EMessageTypes {
   reg = 'reg',
@@ -7,6 +7,7 @@ export enum EMessageTypes {
   updateRoom = 'update_room',
   addUserToRoom = 'add_user_to_room',
   createGame = 'create_game',
+  addShips = 'add_ships',
 }
 
 // TODO: data only string?
@@ -69,4 +70,10 @@ export type AddUserToRoomReq = {
 export type GameDataRes = {
   idGame: string;
   idPlayer: string;
+};
+
+export type GameAddShipsReq = {
+  gameId: string;
+  ships: Ship[];
+  indexPlayer: string;
 };
