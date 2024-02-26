@@ -3,6 +3,7 @@ import {
   handleAddUserToRoom,
   handleCreateRoom,
   handleGameAddShips,
+  handleGameAttack,
   handleReg,
 } from '.';
 import { EMessageTypes, Message } from '../../models';
@@ -26,6 +27,10 @@ export const handleMessage = (ws: WebSocket, msg: string) => {
 
       case EMessageTypes.addShips:
         handleGameAddShips(parsedMessage.data);
+        break;
+
+      case EMessageTypes.attack:
+        handleGameAttack(parsedMessage.data);
         break;
 
       default:

@@ -1,4 +1,4 @@
-import { AttackStatus, Position, Room, Ship, Winner } from '.';
+import { EAttackStatus, Position, Room, Ship, Winner } from '.';
 
 export enum EMessageTypes {
   reg = 'reg',
@@ -104,5 +104,5 @@ export type GameAttackReq = {
 export type GameAttackRes = {
   position: Position;
   currentPlayer: string;
-  status: AttackStatus;
+  status: EAttackStatus;
 };

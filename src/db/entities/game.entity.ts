@@ -1,4 +1,5 @@
 import { Game, GameAddShipsReq, PlayerData, Room } from '../../models';
+import { addShipsToBattleField } from '../../utils';
 
 export class GameRepository {
   private games: Game[] = [];
@@ -25,6 +26,11 @@ export class GameRepository {
     if (gameIndex !== -1 && game && player) {
       player.ships = playerShipData.ships;
 
+      player.battleField = addShipsToBattleField(
+        player.battleField,
+        player.ships,
+      );
+
       return game;
     } else {
       // TODO: Throw Error
@@ -34,5 +40,9 @@ export class GameRepository {
 
   getPlayerIdTurn(game: Game): string {
     return game.playersData[game.playerTurn].playerId;
+  }
+
+  getGameById(gameId: string): Game | null {
+    return this.games.find((game) => game.gameId === gameId) || null;
   }
 }

@@ -16,10 +16,14 @@ import {
   UpdateWinnersRes,
   User,
   Winner,
+  GameAttackReq,
+  BattleFieldPoint,
+  GameAttackRes,
+  EAttackStatus,
 } from '../models';
 import { AppDB, AppDataBase } from '.';
 import { WinnersList } from './entities';
-import { isAllPlayersSetShips } from '../utils';
+import { getAttackStatus, isAllPlayersSetShips } from '../utils';
 
 class AppDataBaseService {
   private static instance: AppDataBaseService;
@@ -221,6 +225,51 @@ class AppDataBaseService {
         client.send(turnResponse.toJSON());
       }
     });
+  }
+
+  sendPlayerAttackResult(
+    game: Game,
+    gameAttackResponse: MessageRes<GameAttackRes>,
+  ): void {
+    game.playersData.forEach((playerData) => {
+      const client: WebSocket | undefined = this.clients.get(
+        playerData.playerId,
+      );
+
+      if (client) {
+        client.send(gameAttackResponse.toJSON());
+      }
+    });
+  }
+
+  doPlayerAttack(data: string): void {
+    const parsedData: GameAttackReq = JSON.parse(data);
+
+    const game: Game | null = this.appDB.gameRepository.getGameById(
+      parsedData.gameId,
+    );
+
+    if (game) {
+      const attackResult: BattleFieldPoint = game.doAttack(parsedData);
+
+      console.log('attackResult.type: ', attackResult.type);
+
+      const gameAttackResponse: MessageRes<GameAttackRes> =
+        new MessageRes<GameAttackRes>(EMessageTypes.attack, {
+          currentPlayer: parsedData.indexPlayer,
+          position: {
+            x: attackResult.x,
+            y: attackResult.y,
+          },
+          status: getAttackStatus(attackResult.type),
+        });
+
+      gameAttackResponse.data.status;
+
+      this.sendPlayerAttackResult(game, gameAttackResponse);
+
+      this.sendPlayerTurn(game);
+    }
   }
 }
 
