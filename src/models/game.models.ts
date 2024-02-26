@@ -18,12 +18,15 @@ export class PlayerData implements IPlayerData {
 export interface IGame {
   gameId: string;
   playersData: PlayerData[];
+  playerTurn: number;
 }
 
 export class Game implements IGame {
   gameId: string;
 
   playersData: PlayerData[] = [];
+
+  playerTurn: number = 0;
 
   constructor(users: RoomUser[]) {
     this.gameId = randomUUID();
