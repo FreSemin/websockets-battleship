@@ -4,6 +4,8 @@ import {
   MessageRes,
   RegDataReq,
   RegDataRes,
+  Room,
+  RoomsDataRes,
   UpdateWinnersRes,
   User,
   Winner,
@@ -47,6 +49,8 @@ class AppDataBaseService {
     this.winnersList.addWinner(winner);
 
     this.sendUpdatedWinners();
+
+    this.getRooms(ws);
   }
 
   regClient(ws: WebSocket, user: User): void {
@@ -78,6 +82,15 @@ class AppDataBaseService {
     this.clients.forEach((ws: WebSocket) => {
       ws.send(winnersResJSON);
     });
+  }
+
+  getRooms(ws: WebSocket): void {
+    const rooms: Room[] = this.appDB.roomRepository.findAll();
+
+    const roomsResponse: MessageRes<RoomsDataRes> =
+      new MessageRes<RoomsDataRes>(EMessageTypes.updateRoom, rooms);
+
+    ws.send(roomsResponse.toJSON());
   }
 }
 
