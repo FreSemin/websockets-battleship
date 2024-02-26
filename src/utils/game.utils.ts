@@ -107,13 +107,14 @@ export const getIsShipKilled = (
   battleField: BattleField,
   battleFieldTarget: BattleFieldPoint,
 ): boolean => {
-  let numberOfBrokenParts = 1;
+  let numberOfBrokenParts = 0;
 
   if (battleFieldTarget.direction === false) {
     for (let i = 0; i < battleFieldTarget.length - 1; i++) {
       if (
-        battleField[battleFieldTarget.y][battleFieldTarget.x + i].type ===
-        EBattleFieldPointType.shot
+        battleField[battleFieldTarget.startPosition.y][
+          battleFieldTarget.startPosition.x + i
+        ].type === EBattleFieldPointType.shot
       ) {
         numberOfBrokenParts += 1;
       }
@@ -121,8 +122,9 @@ export const getIsShipKilled = (
   } else {
     for (let i = 0; i < battleFieldTarget.length - 1; i++) {
       if (
-        battleField[battleFieldTarget.y + i][battleFieldTarget.x].type ===
-        EBattleFieldPointType.shot
+        battleField[battleFieldTarget.startPosition.y + i][
+          battleFieldTarget.startPosition.x
+        ].type === EBattleFieldPointType.shot
       ) {
         numberOfBrokenParts += 1;
       }
