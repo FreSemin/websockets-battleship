@@ -1,25 +1,35 @@
 import { randomUUID } from 'crypto';
 import { RoomUser, Ship } from '.';
 
-export type PlayersShips = {
+export interface IPlayerData {
+  playerId: string;
   ships: Ship[];
-  playerIndex: string;
-  // add filed BattleField???
-};
+}
+
+export class PlayerData implements IPlayerData {
+  playerId: string;
+  ships: Ship[] = [];
+
+  constructor(playerId: string) {
+    this.playerId = playerId;
+  }
+}
 
 export interface IGame {
   gameId: string;
-  players: RoomUser[];
-  playersShips: PlayersShips[];
+  playersData: PlayerData[];
 }
 
 export class Game implements IGame {
   gameId: string;
-  players: RoomUser[] = [];
-  playersShips: PlayersShips[] = [];
+
+  playersData: PlayerData[] = [];
 
   constructor(users: RoomUser[]) {
     this.gameId = randomUUID();
-    this.players = users;
+
+    users.forEach((user) => {
+      this.playersData.push(new PlayerData(user.index));
+    });
   }
 }

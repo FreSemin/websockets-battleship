@@ -1,4 +1,4 @@
-import { Game, GameAddShipsReq, Room } from '../../models';
+import { Game, GameAddShipsReq, PlayerData, Room } from '../../models';
 
 export class GameRepository {
   private games: Game[] = [];
@@ -18,11 +18,12 @@ export class GameRepository {
 
     const game: Game = this.games[gameIndex];
 
-    if (gameIndex !== -1 && game) {
-      game.playersShips.push({
-        ships: playerShipData.ships,
-        playerIndex: playerShipData.indexPlayer,
-      });
+    const player: PlayerData | undefined = game.playersData.find(
+      (player) => player.playerId === playerShipData.indexPlayer,
+    );
+
+    if (gameIndex !== -1 && game && player) {
+      player.ships = playerShipData.ships;
 
       return game;
     } else {

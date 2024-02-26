@@ -6,10 +6,10 @@ import {
   GameAddShipsReq,
   GameDataRes,
   MessageRes,
+  PlayerData,
   RegDataReq,
   RegDataRes,
   Room,
-  RoomUser,
   RoomsDataRes,
   UpdateWinnersRes,
   User,
@@ -153,14 +153,14 @@ class AppDataBaseService {
   createGameForRoom(room: Room): void {
     const game: Game = this.appDB.gameRepository.create(room);
 
-    game.players.forEach((player: RoomUser) => {
-      const client: WebSocket | undefined = this.clients.get(player.index);
+    game.playersData.forEach((player: PlayerData) => {
+      const client: WebSocket | undefined = this.clients.get(player.playerId);
 
       const gameResponse: MessageRes<GameDataRes> = new MessageRes<GameDataRes>(
         EMessageTypes.createGame,
         {
           idGame: game.gameId,
-          idPlayer: player.index,
+          idPlayer: player.playerId,
         },
       );
 
@@ -176,9 +176,10 @@ class AppDataBaseService {
     const gameData: Game | null =
       this.appDB.gameRepository.addPlayersShips(parsedData);
 
-    if (gameData && gameData.playersShips.length === 2) {
-      console.log('Ready to start!');
-    }
+    // TODO: check is ships setted for two players
+    // if (gameData) {
+    // console.log('Ready to start!');
+    // }
   }
 }
 
