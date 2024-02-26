@@ -9,6 +9,7 @@ export enum EMessageTypes {
   createGame = 'create_game',
   addShips = 'add_ships',
   startGame = 'start_game',
+  turn = 'turn',
 }
 
 // TODO: data only string?
@@ -46,6 +47,7 @@ export type MessageDataTypes =
   | RoomsDataRes
   | GameDataRes
   | StartGameRes
+  | TurnRes
   | string;
 
 export type RegDataReq = {
@@ -83,4 +85,8 @@ export type GameAddShipsReq = {
 export type StartGameRes = {
   ships: Ship[];
   currentPlayerIndex: string;
+};
+
+export type TurnRes = {
+  currentPlayer: string;
 };
