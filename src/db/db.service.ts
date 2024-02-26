@@ -130,13 +130,24 @@ class AppDataBaseService {
       );
 
       if (user) {
-        this.appDB.roomRepository.addUserToRoom(parsedData.indexRoom, user);
+        const room: Room | null = this.appDB.roomRepository.addUserToRoom(
+          parsedData.indexRoom,
+          user,
+        );
+
+        if (room?.roomUsers.length === 2) {
+          this.createGameForRoom(room);
+        }
       }
 
       this.sendUpdatedRooms();
     } else {
       // TODO: throw error!
     }
+  }
+
+  createGameForRoom(room: Room): void {
+    // send to each game res
   }
 }
 
