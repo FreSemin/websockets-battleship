@@ -8,6 +8,7 @@ export enum EMessageTypes {
   addUserToRoom = 'add_user_to_room',
   createGame = 'create_game',
   addShips = 'add_ships',
+  startGame = 'start_game',
 }
 
 // TODO: data only string?
@@ -76,4 +77,9 @@ export type GameAddShipsReq = {
   gameId: string;
   ships: Ship[];
   indexPlayer: string;
+};
+
+export type StartGameRes = {
+  ships: Ship[];
+  currentPlayerIndex: string;
 };
