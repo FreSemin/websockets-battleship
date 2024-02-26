@@ -1,5 +1,9 @@
 import { randomUUID } from 'crypto';
 import { RoomUser, Ship } from '.';
+export type Position = {
+  x: number;
+  y: number;
+};
 
 export interface IPlayerData {
   playerId: string;
