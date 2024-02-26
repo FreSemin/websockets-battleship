@@ -31,4 +31,8 @@ export class GameRepository {
       return null;
     }
   }
+
+  getPlayerIdTurn(game: Game): string {
+    return game.playersData[game.playerTurn].playerId;
+  }
 }
