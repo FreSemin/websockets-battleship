@@ -8,6 +8,10 @@ export class UserRepository implements IBaseRepository<User> {
     return this.users;
   }
 
+  findOneById(id: string): User | null {
+    return this.users.find((user) => user.index === id) || null;
+  }
+
   create(newUser: Partial<User>): User {
     const existingUser = this.users.find((user) => newUser.name === user.name);
 
