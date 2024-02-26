@@ -45,6 +45,7 @@ export type MessageDataTypes =
   | UpdateWinnersRes
   | RoomsDataRes
   | GameDataRes
+  | StartGameRes
   | string;
 
 export type RegDataReq = {

@@ -11,12 +11,14 @@ import {
   RegDataRes,
   Room,
   RoomsDataRes,
+  StartGameRes,
   UpdateWinnersRes,
   User,
   Winner,
 } from '../models';
 import { AppDB, AppDataBase } from '.';
 import { WinnersList } from './entities';
+import { isAllPlayersSetShips } from '../utils';
 
 class AppDataBaseService {
   private static instance: AppDataBaseService;
@@ -176,10 +178,27 @@ class AppDataBaseService {
     const gameData: Game | null =
       this.appDB.gameRepository.addPlayersShips(parsedData);
 
-    // TODO: check is ships setted for two players
-    // if (gameData) {
-    // console.log('Ready to start!');
-    // }
+    if (gameData) {
+      const isGameReadyForStart: boolean = isAllPlayersSetShips(gameData);
+
+      if (isGameReadyForStart) {
+        gameData.playersData.forEach((playerData) => {
+          const client: WebSocket | undefined = this.clients.get(
+            playerData.playerId,
+          );
+
+          const startGameResponse: MessageRes<StartGameRes> =
+            new MessageRes<StartGameRes>(EMessageTypes.startGame, {
+              currentPlayerIndex: playerData.playerId,
+              ships: playerData.ships,
+            });
+
+          if (client) {
+            client.send(startGameResponse.toJSON());
+          }
+        });
+      }
+    }
   }
 }
 
