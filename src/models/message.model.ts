@@ -6,6 +6,7 @@ export enum EMessageTypes {
   createRoom = 'create_room',
   updateRoom = 'update_room',
   addUserToRoom = 'add_user_to_room',
+  createGame = 'create_game',
 }
 
 // TODO: data only string?
@@ -41,6 +42,7 @@ export type MessageDataTypes =
   | RegDataRes
   | UpdateWinnersRes
   | RoomsDataRes
+  | GameDataRes
   | string;
 
 export type RegDataReq = {
@@ -61,4 +63,10 @@ export type RoomsDataRes = Room[];
 
 export type AddUserToRoomReq = {
   indexRoom: string;
+};
+
+// TODO: use game entity model?
+export type GameDataRes = {
+  idGame: string;
+  idPlayer: string;
 };
