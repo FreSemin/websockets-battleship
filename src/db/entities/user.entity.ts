@@ -1,7 +1,6 @@
-import { IBaseRepository } from '.';
 import { User } from '../../models';
 
-export class UserRepository implements IBaseRepository<User> {
+export class UserRepository {
   private users: User[] = [];
 
   findAll(): User[] {

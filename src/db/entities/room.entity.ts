@@ -1,7 +1,6 @@
-import { IBaseRepository } from '.';
 import { Room, User } from '../../models';
 
-export class RoomRepository implements IBaseRepository<Room> {
+export class RoomRepository {
   private rooms: Room[] = [];
 
   findAll(): Room[] {
