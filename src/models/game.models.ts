@@ -1,5 +1,8 @@
 import { randomUUID } from 'crypto';
 import { RoomUser, Ship } from '.';
+
+export type AttackStatus = 'miss' | 'killed' | 'shot';
+
 export type Position = {
   x: number;
   y: number;
