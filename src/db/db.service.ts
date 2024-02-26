@@ -84,6 +84,12 @@ class AppDataBaseService {
     });
   }
 
+  createRoom(ws: WebSocket): void {
+    this.appDB.roomRepository.create();
+
+    this.getRooms(ws);
+  }
+
   getRooms(ws: WebSocket): void {
     const rooms: Room[] = this.appDB.roomRepository.findAll();
 
