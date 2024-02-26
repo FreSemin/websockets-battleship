@@ -252,8 +252,6 @@ class AppDataBaseService {
     if (game) {
       const attackResult: BattleFieldPoint = game.doAttack(parsedData);
 
-      console.log('attackResult.type: ', attackResult.type);
-
       const gameAttackResponse: MessageRes<GameAttackRes> =
         new MessageRes<GameAttackRes>(EMessageTypes.attack, {
           currentPlayer: parsedData.indexPlayer,

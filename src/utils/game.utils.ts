@@ -73,8 +73,6 @@ export const getAttackStatus = (
 ): EAttackStatus => {
   let attackStatus: EAttackStatus = EAttackStatus.miss;
 
-  console.log('battleFieldPointType: ', battleFieldPointType);
-
   switch (battleFieldPointType) {
     case EBattleFieldPointType.empty:
       break;
@@ -97,8 +95,6 @@ export const getAttackStatus = (
     default:
       break;
   }
-
-  console.log('before return');
 
   return attackStatus;
 };

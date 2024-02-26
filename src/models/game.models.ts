@@ -101,8 +101,6 @@ export class Game implements IGame {
       startPosition: { x: 0, y: 0 },
     };
 
-    console.log('battleFieldTarget.type: ', battleFieldTarget);
-
     switch (battleFieldTarget.type) {
       case EBattleFieldPointType.empty:
         battleFieldTarget.type = EBattleFieldPointType.miss;
