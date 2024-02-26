@@ -2,10 +2,13 @@ import { WebSocket } from 'ws';
 import {
   AddUserToRoomReq,
   EMessageTypes,
+  Game,
+  GameDataRes,
   MessageRes,
   RegDataReq,
   RegDataRes,
   Room,
+  RoomUser,
   RoomsDataRes,
   UpdateWinnersRes,
   User,
@@ -147,7 +150,23 @@ class AppDataBaseService {
   }
 
   createGameForRoom(room: Room): void {
-    // send to each game res
+    const game: Game = this.appDB.gameRepository.create(room);
+
+    game.players.forEach((player: RoomUser) => {
+      const client: WebSocket | undefined = this.clients.get(player.index);
+
+      const gameResponse: MessageRes<GameDataRes> = new MessageRes<GameDataRes>(
+        EMessageTypes.createGame,
+        {
+          idGame: game.gameId,
+          idPlayer: player.index,
+        },
+      );
+
+      if (client) {
+        client.send(gameResponse.toJSON());
+      }
+    });
   }
 }
 
