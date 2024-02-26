@@ -3,6 +3,7 @@ import {
   AddUserToRoomReq,
   EMessageTypes,
   Game,
+  GameAddShipsReq,
   GameDataRes,
   MessageRes,
   RegDataReq,
@@ -167,6 +168,17 @@ class AppDataBaseService {
         client.send(gameResponse.toJSON());
       }
     });
+  }
+
+  addShipsToGame(data: string): void {
+    const parsedData: GameAddShipsReq = JSON.parse(data);
+
+    const gameData: Game | null =
+      this.appDB.gameRepository.addPlayersShips(parsedData);
+
+    if (gameData && gameData.playersShips.length === 2) {
+      console.log('Ready to start!');
+    }
   }
 }
 
