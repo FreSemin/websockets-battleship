@@ -49,6 +49,7 @@ export type MessageDataTypes =
   | GameDataRes
   | StartGameRes
   | TurnRes
+  | AttackReq
   | AttackRes
   | string;
 
@@ -91,6 +92,13 @@ export type StartGameRes = {
 
 export type TurnRes = {
   currentPlayer: string;
+};
+
+export type AttackReq = {
+  gameId: string;
+  x: number;
+  y: number;
+  indexPlayer: string;
 };
 
 export type AttackRes = {
