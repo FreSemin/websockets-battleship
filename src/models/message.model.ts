@@ -3,6 +3,7 @@ import { Room, Winner } from '.';
 export enum EMessageTypes {
   reg = 'reg',
   updateWinners = 'update_winners',
+  createRoom = 'create_room',
   updateRoom = 'update_room',
 }
 
