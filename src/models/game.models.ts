@@ -1,20 +1,22 @@
 import { randomUUID } from 'crypto';
-import { RoomUser } from '.';
+import { RoomUser, Ship } from '.';
+
+export type PlayersShips = {
+  ships: Ship[];
+  playerIndex: string;
+  // add filed BattleField???
+};
 
 export interface IGame {
   gameId: string;
   players: RoomUser[];
-  // TODO:
-  // ships: Ships[]
-  // TODO:
-  // turn?
+  playersShips: PlayersShips[];
 }
 
 export class Game implements IGame {
   gameId: string;
   players: RoomUser[] = [];
-  // TODO:
-  // ships: Ships[]
+  playersShips: PlayersShips[] = [];
 
   constructor(users: RoomUser[]) {
     this.gameId = randomUUID();
