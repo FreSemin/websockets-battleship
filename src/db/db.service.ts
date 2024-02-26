@@ -12,7 +12,7 @@ import {
   Room,
   RoomsDataRes,
   StartGameRes,
-  TurnRes,
+  GameTurnRes,
   UpdateWinnersRes,
   User,
   Winner,
@@ -210,7 +210,7 @@ class AppDataBaseService {
         playerData.playerId,
       );
 
-      const turnResponse: MessageRes<TurnRes> = new MessageRes<TurnRes>(
+      const turnResponse: MessageRes<GameTurnRes> = new MessageRes<GameTurnRes>(
         EMessageTypes.turn,
         {
           currentPlayer: game.playersData[game.playerTurn].playerId,

@@ -48,9 +48,9 @@ export type MessageDataTypes =
   | RoomsDataRes
   | GameDataRes
   | StartGameRes
-  | TurnRes
-  | AttackReq
-  | AttackRes
+  | GameTurnRes
+  | GameAttackReq
+  | GameAttackRes
   | string;
 
 export type RegDataReq = {
@@ -90,18 +90,18 @@ export type StartGameRes = {
   currentPlayerIndex: string;
 };
 
-export type TurnRes = {
+export type GameTurnRes = {
   currentPlayer: string;
 };
 
-export type AttackReq = {
+export type GameAttackReq = {
   gameId: string;
   x: number;
   y: number;
   indexPlayer: string;
 };
 
-export type AttackRes = {
+export type GameAttackRes = {
   position: Position;
   currentPlayer: string;
   status: AttackStatus;
