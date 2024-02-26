@@ -49,7 +49,7 @@ export type MessageDataTypes =
   | GameDataRes
   | StartGameRes
   | TurnRes
-  | AttackReq
+  | AttackRes
   | string;
 
 export type RegDataReq = {
@@ -93,7 +93,7 @@ export type TurnRes = {
   currentPlayer: string;
 };
 
-export type AttackReq = {
+export type AttackRes = {
   position: Position;
   currentPlayer: string;
   status: AttackStatus;
