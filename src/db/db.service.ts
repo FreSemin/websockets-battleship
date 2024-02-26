@@ -1,5 +1,6 @@
 import { WebSocket } from 'ws';
 import {
+  AddUserToRoomReq,
   EMessageTypes,
   MessageRes,
   RegDataReq,
@@ -84,10 +85,10 @@ class AppDataBaseService {
     });
   }
 
-  createRoom(ws: WebSocket): void {
+  createRoom(): void {
     this.appDB.roomRepository.create();
 
-    this.getRooms(ws);
+    this.sendUpdatedRooms();
   }
 
   getRooms(ws: WebSocket): void {
@@ -97,6 +98,45 @@ class AppDataBaseService {
       new MessageRes<RoomsDataRes>(EMessageTypes.updateRoom, rooms);
 
     ws.send(roomsResponse.toJSON());
+  }
+
+  sendUpdatedRooms(): void {
+    const rooms: Room[] = this.appDB.roomRepository.findAll();
+
+    const roomsResponse: MessageRes<RoomsDataRes> =
+      new MessageRes<RoomsDataRes>(EMessageTypes.updateRoom, rooms);
+
+    const roomsResJSON: string = roomsResponse.toJSON();
+
+    this.clients.forEach((ws: WebSocket) => {
+      ws.send(roomsResJSON);
+    });
+  }
+
+  addUserToRoom(data: string, ws: WebSocket): void {
+    const parsedData: AddUserToRoomReq = JSON.parse(data);
+
+    const clientsArr: [string, WebSocket][] = Array.from(
+      this.clients.entries(),
+    );
+
+    const clientInfo: [string, WebSocket] | undefined = clientsArr.find(
+      (el) => el[1] === ws,
+    );
+
+    if (clientInfo) {
+      const user: User | null = this.appDB.userRepository.findOneById(
+        clientInfo[0],
+      );
+
+      if (user) {
+        this.appDB.roomRepository.addUserToRoom(parsedData.indexRoom, user);
+      }
+
+      this.sendUpdatedRooms();
+    } else {
+      // TODO: throw error!
+    }
   }
 }
 

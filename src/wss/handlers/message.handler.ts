@@ -1,5 +1,5 @@
 import { WebSocket } from 'ws';
-import { handleCreateRoom, handleReg } from '.';
+import { handleAddUserToRoom, handleCreateRoom, handleReg } from '.';
 import { EMessageTypes, Message } from '../../models';
 
 export const handleMessage = (ws: WebSocket, msg: string) => {
@@ -12,7 +12,11 @@ export const handleMessage = (ws: WebSocket, msg: string) => {
         break;
 
       case EMessageTypes.createRoom:
-        handleCreateRoom(ws);
+        handleCreateRoom();
+        break;
+
+      case EMessageTypes.addUserToRoom:
+        handleAddUserToRoom(parsedMessage.data, ws);
         break;
 
       default:

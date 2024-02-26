@@ -5,6 +5,7 @@ export enum EMessageTypes {
   updateWinners = 'update_winners',
   createRoom = 'create_room',
   updateRoom = 'update_room',
+  addUserToRoom = 'add_user_to_room',
 }
 
 // TODO: data only string?
@@ -57,3 +58,7 @@ export type RegDataRes = {
 export type UpdateWinnersRes = Winner[];
 
 export type RoomsDataRes = Room[];
+
+export type AddUserToRoomReq = {
+  indexRoom: string;
+};
