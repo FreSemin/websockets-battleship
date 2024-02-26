@@ -1,8 +1,9 @@
-import { Winner } from '.';
+import { Room, Winner } from '.';
 
 export enum EMessageTypes {
   reg = 'reg',
   updateWinners = 'update_winners',
+  updateRoom = 'update_room',
 }
 
 // TODO: data only string?
@@ -37,6 +38,7 @@ export type MessageDataTypes =
   | RegDataReq
   | RegDataRes
   | UpdateWinnersRes
+  | RoomsDataRes
   | string;
 
 export type RegDataReq = {
@@ -52,3 +54,5 @@ export type RegDataRes = {
 };
 
 export type UpdateWinnersRes = Winner[];
+
+export type RoomsDataRes = Room[];
